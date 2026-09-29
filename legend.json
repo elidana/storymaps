@@ -1,0 +1,40 @@
+{
+  "layers": [
+    {
+      "id": "envirosensors",
+      "name": "envirosensors",
+      "type": "vector",
+      "sld": "sld/envirosensors.sld"
+    },
+    {
+      "id": "gnss",
+      "name": "gnss",
+      "type": "vector",
+      "sld": "sld/gnss.sld"
+    },
+    {
+      "id": "quakes_lastyear",
+      "name": "quakes_lastyear",
+      "type": "vector",
+      "sld": "sld/quakes_lastyear.sld"
+    },
+    {
+      "id": "sampling-sites",
+      "name": "sampling-sites",
+      "type": "vector",
+      "sld": "sld/sampling-sites.sld"
+    },
+    {
+      "id": "seimsic-stations",
+      "name": "seimsic-stations",
+      "type": "vector",
+      "sld": "sld/seimsic-stations.sld"
+    },
+    {
+      "id": "webcams",
+      "name": "webcams",
+      "type": "vector",
+      "sld": "sld/webcams.sld"
+    }
+  ]
+}
