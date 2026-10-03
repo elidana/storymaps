@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const defaultBounds = [[-39.5, 175.0], [-38.8, 176.1]];
+  const defaultBounds = [[-39.5, 175.2], [-39.1, 175.7]];
   const linzTileUrl = "https://basemaps.linz.govt.nz/v1/tiles/hillshade/WebMercatorQuad/{z}/{x}/{y}.webp?api=d01hep5551e30kxb7w85hck49tp";
 
   const HIT_LINE = { color: "#000", weight: 22, opacity: 0, fillOpacity: 0 };

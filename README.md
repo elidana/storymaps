@@ -13,8 +13,7 @@ basemap: LINZ Basemaps hosted DEM hillshade tiles
 
 The map loads LINZ hillshade tiles directly from the LINZ Basemaps service; no
 basemap tiles are downloaded or stored in this project. The included API key is
-the one shown in LINZ's public Leaflet example. Replace it in `app.js` with a
-registered key for a deployed site if required.
+the one shown in LINZ's public Leaflet example. 
 
 software: QGIS and **QStoryMap** QGIS plugin: [github.com/amanchry/QStoryMap](https://github.com/amanchry/QStoryMap)
 
