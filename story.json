@@ -5,14 +5,26 @@
       "title": "How does GeoNet monitor Ruapehu?",
       "body": "GeoNet has several monitoring stations in the Ngāti Rangi rohe. These stations are used to monitor volcanic activity and work together with other stations all around Aotearoa New Zealand to monitor earthquakes, volcanoes, landslides and tsunami. At Ruapehu (and other active volcanoes), GeoNet also periodically collect gas and water measurements. These data help inform communities and agencies about volcano behaviour and potential impacts. All data are freely and openly available to everyone and can be viewed and downloaded through the <a href='https://www.geonet.org.nz' target='_blank'>GeoNet website</a> and other GeoNet tools.",
       "center": null,
-      "zoom": 10
+      "zoom": 10,
+      "showOnly": false
+    },
+    {
+      "key": "sec:3e5f8c1b9d",
+      "title": "Volcano monitoring cameras",
+      "body": "GeoNet's volcano camera images are an important part of the monitoring programme as changes at a volcano can be observed and compared over time. Our cameras produce an image every 10 minutes.",
+      "center": null,
+      "zoom": 13,
+      "layer": "webcams",
+      "showOnly": true
     },
     {
       "key": "sec:c9d3fe8924",
-      "title": "Dome Shelter Web Camera",
-      "body": "Located near the Crater Lake, this visual camera provides critical live imagery of steam plumes and lake level activity.",
-      "center": [175.39951, -39.41779],
-      "zoom": 14
+      "title": "Mangateitei Web Camera",
+      "body": "Located near Ohakune, this visual camera provides images of Mount Ruapehu from the South. The latest images can be viewed on the <a href='https://www.geonet.org.nz/volcano/cameras/ruapehusouth'>Volcano Cameras page</a> on the GeoNet website. But the full archive of high resolution images since when the camera was installed can be downloaded on the <a href='https://data.geonet.org.nz/v1/data/camera/volcano/images/'>GeoNet Data website</a>, looking at the MTSR station. Data are taken every 10 minutes and are used by our monitoring center to keep an eye on the volcanic activity.",
+      "center": [175.47041, -39.38461],
+      "zoom": 13,
+      "layer": "webcams",
+      "showOnly": true
     }
   ]
 }

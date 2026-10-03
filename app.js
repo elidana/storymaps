@@ -278,7 +278,7 @@
 
   function buildLayerControl(map, layers) {
     const root = document.getElementById("layer-control-root");
-    if (!root || !layers.length) return;
+    if (!root || !layers.length) return function () {};
     root.removeAttribute("hidden");
     root.innerHTML = "";
     const inner = el("div", { className: "layer-control-inner" });
@@ -347,6 +347,15 @@
       });
       syncAllButtonLabel();
     });
+
+    return function () {
+      checkboxes.forEach(function (cb, i) {
+        cb.checked = (layers[i].leafletLayers || []).every(function (lyr) {
+          return map.hasLayer(lyr);
+        });
+      });
+      syncAllButtonLabel();
+    };
   }
 
   /** Basemap dropdown (Leaflet): LINZ hillshade and alternate basemaps below overlays. */
@@ -1276,11 +1285,22 @@
       layerById[String(layerMeta.id)] = layers[layers.length - 1];
     });
 
-    buildLayerControl(map, layers);
+    const syncLayerControls = buildLayerControl(map, layers);
 
     // Story sections (side panel)
     function activateSection(sec) {
       if (!sec) return;
+      if (sec.showOnly === true && sec.layer != null && layerById[String(sec.layer)]) {
+        layers.forEach(function (rec) {
+          setRecordVisible(map, rec, rec === layerById[String(sec.layer)]);
+        });
+        syncLayerControls();
+      } else if (sec.showOnly === false) {
+        layers.forEach(function (rec) {
+          setRecordVisible(map, rec, true);
+        });
+        syncLayerControls();
+      }
       // Intro / no-center sections: fly to overall project extent (merged layer bounds).
       if (!sec.center || !Array.isArray(sec.center) || sec.center.length !== 2) {
         try {
