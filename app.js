@@ -1085,8 +1085,6 @@
 
     const map = L.map("map", { scrollWheelZoom: true }).fitBounds(defaultBounds);
     setupBasemapSwitcher(map);
-    const projectBounds = L.latLngBounds(defaultBounds);
-
     const layers = [];
     const layerById = {};
 
@@ -1258,19 +1256,7 @@
             return response.json();
           })
           .then(function (data) {
-            if (layerMeta.url && data && data.type === "FeatureCollection" && Array.isArray(data.features)) {
-              const regionalFeatures = data.features.filter(function (feature) {
-                const geometry = feature && feature.geometry;
-                const coordinates = geometry && geometry.coordinates;
-                if (!geometry || geometry.type !== "Point" || !Array.isArray(coordinates) || coordinates.length < 2) return false;
-                const longitude = parseFloat(coordinates[0]);
-                const latitude = parseFloat(coordinates[1]);
-                return isFinite(longitude) && isFinite(latitude) && projectBounds.contains([latitude, longitude]);
-              });
-              gj.addData({ type: "FeatureCollection", features: regionalFeatures });
-            } else {
-              gj.addData(data);
-            }
+            gj.addData(data);
           })
           .catch(function (error) {
             console.error("Unable to load layer " + layerMeta.name + ".", error);
