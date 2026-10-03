@@ -44,7 +44,7 @@
           <span class="basemap-menu-thumb-wrap">
             <img
               id="basemapMenuThumb"
-              src="https://tile.openstreetmap.org/5/21/11.png"
+              src="https://basemaps.linz.govt.nz/v1/tiles/hillshade/WebMercatorQuad/9/505/316.webp?api=d01hep5551e30kxb7w85hck49tp"
               alt=""
               width="40"
               height="40"
@@ -55,7 +55,12 @@
           <i class="bi bi-chevron-down basemap-menu-chevron" aria-hidden="true"></i>
         </button>
         <div class="basemap-options" id="basemapOptions" role="listbox" aria-label="Choose basemap" hidden>
-          <button type="button" class="basemap-option selected" data-basemap="osm" role="option" aria-selected="true" title="OpenStreetMap">
+          <button type="button" class="basemap-option selected" data-basemap="linz" role="option" aria-selected="true" title="LINZ New Zealand DEM Hillshade">
+            <span class="basemap-option-thumb">
+              <img src="https://basemaps.linz.govt.nz/v1/tiles/hillshade/WebMercatorQuad/9/505/316.webp?api=d01hep5551e30kxb7w85hck49tp" alt="LINZ New Zealand DEM Hillshade" width="64" height="64" decoding="async" />
+            </span>
+          </button>
+          <button type="button" class="basemap-option" data-basemap="osm" role="option" aria-selected="false" title="OpenStreetMap">
             <span class="basemap-option-thumb">
               <img src="https://tile.openstreetmap.org/5/21/11.png" alt="OpenStreetMap" width="64" height="64" decoding="async" />
             </span>

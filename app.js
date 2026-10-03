@@ -1,8 +1,8 @@
 (function () {
   "use strict";
 
-  const defaultCenter = [20, 0];
-  const defaultZoom = 2;
+  const defaultBounds = [[-39.5, 175.0], [-38.8, 176.1]];
+  const linzTileUrl = "https://basemaps.linz.govt.nz/v1/tiles/hillshade/WebMercatorQuad/{z}/{x}/{y}.webp?api=d01hep5551e30kxb7w85hck49tp";
 
   const HIT_LINE = { color: "#000", weight: 22, opacity: 0, fillOpacity: 0 };
 
@@ -95,13 +95,6 @@
   function palette(i) {
     const colors = ["#3d9cf5", "#6bcf7f", "#f5b03d", "#c678ff", "#ff6b6b", "#4ecdc4"];
     return colors[i % colors.length];
-  }
-
-  function setBoundsFromBbox(layerMeta) {
-    const b = layerMeta.bbox;
-    if (Array.isArray(b) && b.length === 4) {
-      layerMeta._bounds = L.latLngBounds([b[1], b[0]], [b[3], b[2]]);
-    }
   }
 
   /** Loose match for QGIS category values vs GeoJSON attribute types (number vs string, etc.). */
@@ -322,11 +315,17 @@
     });
   }
 
-  /** Basemap dropdown (Leaflet): OSM, Google street, Google satellite — all on low z-index pane under overlays. */
+  /** Basemap dropdown (Leaflet): LINZ hillshade and alternate basemaps below overlays. */
   function setupBasemapSwitcher(map) {
     map.createPane("basemap");
     const bp = map.getPane("basemap");
     if (bp) bp.style.zIndex = "200";
+
+    const linzLayer = L.tileLayer(linzTileUrl, {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://data.linz.govt.nz/layer/121959-new-zealand-dem-hillshade/">LINZ New Zealand DEM Hillshade (CC BY 4.0)</a>',
+      pane: "basemap",
+    });
 
     const osmLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
@@ -348,10 +347,10 @@
       pane: "basemap",
     });
 
-    const byKey = { osm: osmLayer, street: streetLayer, satellite: satelliteLayer };
+    const byKey = { linz: linzLayer, osm: osmLayer, street: streetLayer, satellite: satelliteLayer };
 
-    let current = osmLayer;
-    osmLayer.addTo(map);
+    let current = linzLayer;
+    linzLayer.addTo(map);
 
     const root = document.querySelector(".basemap-switcher");
     const menuBtn = document.getElementById("basemapMenuBtn");
@@ -420,7 +419,7 @@
       if (ev.key === "Escape" && !optionsEl.hidden) closeMenu();
     });
 
-    setActiveOption("osm");
+    setActiveOption("linz");
   }
 
   function setupLegendToggle() {
@@ -1050,29 +1049,20 @@
     loadLegend(manifest, tasks);
     setupLegendToggle();
 
-    const map = L.map("map", { scrollWheelZoom: true }).setView(defaultCenter, defaultZoom);
+    const map = L.map("map", { scrollWheelZoom: true }).fitBounds(defaultBounds);
     setupBasemapSwitcher(map);
 
     const layers = [];
     const layerById = {};
     var refitLayerBoundsTimer = null;
 
-    function fitAllLayerBounds() {
-      let merged = null;
-      layers.forEach(function (rec) {
-        const b = rec.meta._bounds;
-        if (b && b.isValid()) {
-          merged = merged ? merged.extend(b) : L.latLngBounds(b.getSouthWest(), b.getNorthEast());
-        }
-      });
-      if (merged && merged.isValid()) {
-        map.fitBounds(merged.pad(0.08), { animate: true, duration: 1.2, maxZoom: 16 });
-      }
+    function fitProjectBounds() {
+      map.fitBounds(defaultBounds, { animate: true, duration: 1.2 });
     }
 
-    function scheduleFitAllLayerBounds() {
+    function scheduleFitProjectBounds() {
       if (refitLayerBoundsTimer) clearTimeout(refitLayerBoundsTimer);
-      refitLayerBoundsTimer = setTimeout(fitAllLayerBounds, 200);
+      refitLayerBoundsTimer = setTimeout(fitProjectBounds, 200);
     }
 
     const ordered = normalizeLayers(manifest);
@@ -1080,8 +1070,6 @@
     ordered.forEach(function (layerMeta, idx) {
       const zBand = ordered.length - 1 - idx;
       const fallbackColor = palette(idx);
-      setBoundsFromBbox(layerMeta);
-
       // Local XYZ tiles (exported from QGIS) for crisp zooming
       if (layerMeta.renderMode === "tiles" && layerMeta.tilesUrl) {
         const paneName = ensurePane(map, (layerMeta.type === "raster" ? "t-r-" : "t-v-") + layerMeta.id, overlayPaneZ(zBand, 0));
@@ -1258,7 +1246,7 @@
       // Intro / no-center sections: fly to overall project extent (merged layer bounds).
       if (!sec.center || !Array.isArray(sec.center) || sec.center.length !== 2) {
         try {
-          fitAllLayerBounds();
+          fitProjectBounds();
         } catch (e) {}
         return;
       }
@@ -1366,7 +1354,7 @@
     loadStory();
 
     if (layers.length) {
-      setTimeout(scheduleFitAllLayerBounds, 400);
+      setTimeout(scheduleFitProjectBounds, 400);
     }
 
     map.invalidateSize();
