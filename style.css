@@ -211,6 +211,14 @@ body.no-story .side-panel {
   white-space: pre-wrap;
 }
 
+.story-viewer-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 0.85rem;
+  border-radius: 8px;
+}
+
 .story-viewer-foot {
   display: flex;
   gap: 0.6rem;

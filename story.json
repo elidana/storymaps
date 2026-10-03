@@ -11,7 +11,7 @@
     {
       "key": "sec:3e5f8c1b9d",
       "title": "Volcano monitoring cameras",
-      "body": "GeoNet's volcano camera images are an important part of the monitoring programme as changes at a volcano can be observed and compared over time. Our cameras produce an image every 10 minutes.",
+      "body": "GeoNet's volcano camera images are an important part of the monitoring programme as changes at a volcano can be observed and compared over time. Our cameras produce an image every 10 minutes. The latest images can be viewed on the <a href='https://www.geonet.org.nz/volcano/cameras'>Volcano Cameras page</a> on the GeoNet website.",
       "center": null,
       "zoom": 13,
       "layer": "webcams",
@@ -20,10 +20,12 @@
     {
       "key": "sec:c9d3fe8924",
       "title": "Mangateitei Web Camera",
-      "body": "Located near Ohakune, this visual camera provides images of Mount Ruapehu from the South. The latest images can be viewed on the <a href='https://www.geonet.org.nz/volcano/cameras/ruapehusouth'>Volcano Cameras page</a> on the GeoNet website. But the full archive of high resolution images since when the camera was installed can be downloaded on the <a href='https://data.geonet.org.nz/v1/data/camera/volcano/images/'>GeoNet Data website</a>, looking at the MTSR station. Data are taken every 10 minutes and are used by our monitoring center to keep an eye on the volcanic activity.",
+      "body": "Located near Ohakune, this visual camera provides images of Mount Ruapehu from the South. Mangateitei webcam latest images can be viewed on the <a href='https://www.geonet.org.nz/volcano/cameras/ruapehusouth'>Ruapehu South camera page</a>. The full archive of high resolution images since when the camera was installed in 2011 can be downloaded on the <a href='https://data.geonet.org.nz/v1/data/camera/volcano/images/'>GeoNet Data website</a>. The station code for this camera is <strong>MTSR</strong>. The image below was captured on March 6, at 3:30 am of the night.",
       "center": [175.47041, -39.38461],
       "zoom": 13,
       "layer": "webcams",
+      "image": "images/2026.063.1430.00.MTSR.01.jpg",
+      "imageAlt": "View of Mount Ruapehu from the Mangateitei web camera",
       "showOnly": true
     }
   ]

@@ -1372,6 +1372,15 @@
 		p.innerHTML = s.body;
 		body.appendChild(p);
         }
+        if (s.image) {
+          const image = el("img", {
+            className: "story-viewer-image",
+            src: s.image,
+            alt: s.imageAlt || s.title || "Story image",
+            loading: "lazy",
+          });
+          body.appendChild(image);
+        }
         prevBtn.disabled = idx <= 0;
         nextBtn.disabled = idx >= secs.length - 1;
         body.scrollTop = 0;
