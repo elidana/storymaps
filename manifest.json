@@ -4,105 +4,58 @@
   "layers": [
     {
       "type": "vector",
-      "renderMode": "image",
       "order": 0,
       "id": "envirosensors",
-      "name": "envirosensors",
-      "bbox": [
-        -177.920373,
-        -43.5181493375,
-        178.1543349,
-        -29.26209
-      ],
-      "opacity": 1.0,
-      "image": "images/envirosensors.png",
-      "imageWidth": 4096,
-      "imageHeight": 164
+      "name": "Envirosensors",
+      "url": "https://api.geonet.org.nz/network/station?sensorType=5,6&endDate=9999-01-01",
+      "style": {
+        "mode": "single",
+        "style": { "kind": "point", "shape": "diamond", "size": 16, "color": "#3d8035", "fillColor": "#1c8810", "weight": 1 }
+      }
     },
     {
       "type": "vector",
-      "renderMode": "image",
       "order": 1,
       "id": "gnss",
-      "name": "gnss",
-      "bbox": [
-        -177.907235,
-        -43.53162,
-        178.1545288,
-        -29.267332
-      ],
-      "opacity": 1.0,
-      "image": "images/gnss.png",
-      "imageWidth": 4096,
-      "imageHeight": 164
+      "name": "GNSS",
+      "url": "https://api.geonet.org.nz/network/station?sensorType=8&endDate=9999-01-01",
+      "style": {
+        "mode": "single",
+        "style": { "kind": "point", "shape": "triangle", "size": 18, "color": "#325780", "fillColor": "#72e0fd", "weight": 1 }
+      }
     },
     {
       "type": "vector",
-      "renderMode": "image",
       "order": 2,
-      "id": "quakes_lastyear",
-      "name": "quakes_lastyear",
-      "bbox": [
-        174.908111572,
-        -39.757900238,
-        176.129760742,
-        -38.673534393
-      ],
-      "opacity": 1.0,
-      "image": "images/quakes_lastyear.png",
-      "imageWidth": 4096,
-      "imageHeight": 3636
-    },
-    {
-      "type": "vector",
-      "renderMode": "image",
-      "order": 3,
       "id": "sampling-sites",
-      "name": "sampling-sites",
-      "bbox": [
-        -177.929347,
-        -39.2835,
-        177.193381805,
-        -29.243604
-      ],
-      "opacity": 1.0,
-      "image": "images/sampling-sites.png",
-      "imageWidth": 4096,
-      "imageHeight": 116
+      "name": "Sampling sites",
+      "url": "https://api.geonet.org.nz/network/station?sensorType=10&endDate=9999-01-01",
+      "style": {
+        "mode": "single",
+        "style": { "kind": "point", "shape": "diamond", "size": 16, "color": "#801119", "fillColor": "#db1e2a", "weight": 1 }
+      }
     },
     {
       "type": "vector",
-      "renderMode": "image",
+      "order": 3,
+      "id": "seismic-stations",
+      "name": "Seismic stations",
+      "url": "https://api.geonet.org.nz/network/station?sensorType=2,11,12&endDate=9999-01-01",
+      "style": {
+        "mode": "single",
+        "style": { "kind": "point", "shape": "circle", "size": 14, "color": "#1fb332", "fillColor": "#aafc32", "weight": 1 }
+      }
+    },
+    {
+      "type": "vector",
       "order": 4,
-      "id": "seimsic-stations",
-      "name": "seimsic-stations",
-      "bbox": [
-        -177.92892,
-        -46.903418062,
-        178.54816,
-        -29.244853
-      ],
-      "opacity": 1.0,
-      "image": "images/seimsic-stations.png",
-      "imageWidth": 4096,
-      "imageHeight": 203
-    },
-    {
-      "type": "vector",
-      "renderMode": "image",
-      "order": 5,
       "id": "webcams",
-      "name": "webcams",
-      "bbox": [
-        -177.907235,
-        -43.53162,
-        178.1545288,
-        -29.267332
-      ],
-      "opacity": 1.0,
-      "image": "images/webcams.png",
-      "imageWidth": 4096,
-      "imageHeight": 164
+      "name": "Webcams",
+      "url": "https://api.geonet.org.nz/network/station?sensorType=13&endDate=9999-01-01",
+      "style": {
+        "mode": "single",
+        "style": { "kind": "point", "shape": "circle", "size": 14, "color": "#3d8035", "fillColor": "#800bf7", "weight": 1 }
+      }
     }
   ],
   "story": "story.json",

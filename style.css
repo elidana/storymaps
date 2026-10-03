@@ -102,6 +102,11 @@ body {
   min-height: calc(100vh - 60px);
 }
 
+.geojson-point-icon {
+  background: transparent;
+  border: 0;
+}
+
 /* When there is no story.json, use full-width map. */
 body.no-story .layout {
   grid-template-columns: 1fr;

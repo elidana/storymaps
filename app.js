@@ -187,6 +187,40 @@
     };
   }
 
+  function pointIconFromSymbol(s, fallbackColor) {
+    const size = Math.max(6, Math.min(40, parseFloat(s.size) || 14));
+    const half = size / 2;
+    const inset = Math.max(1, (parseFloat(s.weight) || 1) / 2);
+    const fill = s.fillColor || s.color || fallbackColor;
+    const stroke = s.color || fill;
+    const strokeWidth = s.weight != null ? s.weight : 1;
+    let shape;
+
+    switch (String(s.shape || "circle").toLowerCase()) {
+      case "diamond":
+        shape = '<polygon points="' + half + "," + inset + " " + (size - inset) + "," + half + " " + half + "," + (size - inset) + " " + inset + "," + half + '"';
+        break;
+      case "triangle":
+        shape = '<polygon points="' + half + "," + inset + " " + (size - inset) + "," + (size - inset) + " " + inset + "," + (size - inset) + '"';
+        break;
+      case "square":
+        shape = '<rect x="' + inset + '" y="' + inset + '" width="' + (size - inset * 2) + '" height="' + (size - inset * 2) + '"';
+        break;
+      default:
+        shape = '<circle cx="' + half + '" cy="' + half + '" r="' + (half - inset) + '"';
+    }
+
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + size + " " + size + '" aria-hidden="true">' +
+      shape + ' fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + strokeWidth + '"/>' +
+      '</svg>';
+    return L.divIcon({
+      className: "geojson-point-icon",
+      html: svg,
+      iconSize: [size, size],
+      iconAnchor: [half, half],
+    });
+  }
+
   function normalizeLayers(manifest) {
     const raw = manifest.layers || [];
     const out = raw.map(function (Lyr, i) {
@@ -1051,18 +1085,13 @@
 
     const map = L.map("map", { scrollWheelZoom: true }).fitBounds(defaultBounds);
     setupBasemapSwitcher(map);
+    const projectBounds = L.latLngBounds(defaultBounds);
 
     const layers = [];
     const layerById = {};
-    var refitLayerBoundsTimer = null;
 
     function fitProjectBounds() {
       map.fitBounds(defaultBounds, { animate: true, duration: 1.2 });
-    }
-
-    function scheduleFitProjectBounds() {
-      if (refitLayerBoundsTimer) clearTimeout(refitLayerBoundsTimer);
-      refitLayerBoundsTimer = setTimeout(fitProjectBounds, 200);
     }
 
     const ordered = normalizeLayers(manifest);
@@ -1193,36 +1222,59 @@
             });
           }
           const sym = pickSymbolStyle(styleDef, feature, fallbackColor);
-          const o = circleOptionsFromSymbol(sym, fallbackColor);
-          o.pane = hitPane;
-          return L.circleMarker(latlng, o);
+          if (sym && sym.shape) {
+            return L.marker(latlng, {
+              pane: hitPane,
+              icon: pointIconFromSymbol(sym, fallbackColor),
+            });
+          }
+          const options = circleOptionsFromSymbol(sym, fallbackColor);
+          options.pane = hitPane;
+          return L.circleMarker(latlng, options);
         },
         onEachFeature: function (feature, lyr) {
           const props = feature.properties || {};
-          const bits = Object.keys(props)
-            .slice(0, 8)
-            .map(function (k) {
-              return "<strong>" + k + ":</strong> " + String(props[k]);
-            });
-          if (bits.length) lyr.bindPopup(bits.join("<br/>"));
+          const popup = document.createElement("div");
+          Object.keys(props).slice(0, 8).forEach(function (key) {
+            const row = document.createElement("div");
+            const label = document.createElement("strong");
+            const value = document.createElement("span");
+            label.textContent = key + ": ";
+            value.textContent = props[key] == null ? "" : typeof props[key] === "object" ? JSON.stringify(props[key]) : String(props[key]);
+            row.appendChild(label);
+            row.appendChild(value);
+            popup.appendChild(row);
+          });
+          if (popup.childNodes.length) lyr.bindPopup(popup);
         },
       }).addTo(map);
 
-      if (layerMeta.file) {
+      const dataUrl = layerMeta.url || layerMeta.file;
+      if (dataUrl) {
         tasks.begin();
-        fetch(layerMeta.file)
-          .then(function (r) {
-            return r.json();
+        fetch(dataUrl)
+          .then(function (response) {
+            if (!response.ok) throw new Error("HTTP " + response.status);
+            return response.json();
           })
           .then(function (data) {
-            gj.addData(data);
-            const fb = gj.getBounds && gj.getBounds();
-            if (fb && fb.isValid()) {
-              layerMeta._bounds = fb;
+            if (layerMeta.url && data && data.type === "FeatureCollection" && Array.isArray(data.features)) {
+              const regionalFeatures = data.features.filter(function (feature) {
+                const geometry = feature && feature.geometry;
+                const coordinates = geometry && geometry.coordinates;
+                if (!geometry || geometry.type !== "Point" || !Array.isArray(coordinates) || coordinates.length < 2) return false;
+                const longitude = parseFloat(coordinates[0]);
+                const latitude = parseFloat(coordinates[1]);
+                return isFinite(longitude) && isFinite(latitude) && projectBounds.contains([latitude, longitude]);
+              });
+              gj.addData({ type: "FeatureCollection", features: regionalFeatures });
+            } else {
+              gj.addData(data);
             }
-            scheduleFitAllLayerBounds();
           })
-          .catch(function () {})
+          .catch(function (error) {
+            console.error("Unable to load layer " + layerMeta.name + ".", error);
+          })
           .finally(function () {
             tasks.end();
           });
@@ -1352,10 +1404,6 @@
     }
 
     loadStory();
-
-    if (layers.length) {
-      setTimeout(scheduleFitProjectBounds, 400);
-    }
 
     map.invalidateSize();
     window.addEventListener("resize", function () {
