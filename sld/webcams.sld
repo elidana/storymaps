@@ -10,7 +10,7 @@
           <se:PointSymbolizer>
             <se:Graphic>
               <se:Mark>
-                <se:WellKnownName>circle</se:WellKnownName>
+                <se:WellKnownName>square</se:WellKnownName>
                 <se:Fill>
                   <se:SvgParameter name="fill">#800bf7</se:SvgParameter>
                 </se:Fill>
@@ -19,7 +19,7 @@
                   <se:SvgParameter name="stroke-width">1</se:SvgParameter>
                 </se:Stroke>
               </se:Mark>
-              <se:Size>14</se:Size>
+              <se:Size>20</se:Size>
             </se:Graphic>
           </se:PointSymbolizer>
         </se:Rule>

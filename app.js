@@ -463,6 +463,7 @@
     });
 
     setActiveOption("linz");
+    return selectBasemap;
   }
 
   function setupLegendToggle() {
@@ -1093,7 +1094,7 @@
     setupLegendToggle();
 
     const map = L.map("map", { scrollWheelZoom: true }).fitBounds(defaultBounds);
-    setupBasemapSwitcher(map);
+    const setBasemap = setupBasemapSwitcher(map);
     const layers = [];
     const layerById = {};
 
@@ -1290,6 +1291,7 @@
     // Story sections (side panel)
     function activateSection(sec) {
       if (!sec) return;
+      if (sec.basemap) setBasemap(sec.basemap);
       if (sec.showOnly === true && sec.layer != null && layerById[String(sec.layer)]) {
         layers.forEach(function (rec) {
           setRecordVisible(map, rec, rec === layerById[String(sec.layer)]);
