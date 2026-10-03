@@ -1348,7 +1348,9 @@
         meta.textContent = (idx + 1) + " / " + secs.length;
         body.innerHTML = "";
         if (s.body) {
-          body.appendChild(el("p", { className: "story-viewer-text", text: s.body }));
+		const p = el("p", { className: "story-viewer-text" });
+		p.innerHTML = s.body;
+		body.appendChild(p);
         }
         prevBtn.disabled = idx <= 0;
         nextBtn.disabled = idx >= secs.length - 1;

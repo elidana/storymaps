@@ -3,7 +3,7 @@
     {
       "key": "intro",
       "title": "How does GeoNet monitor Ruapehu?",
-      "body": "GeoNet has several monitoring stations in the Ngāti Rangi rohe. These stations are used to monitor volcanic activity and work together with other stations all around Aotearoa to monitor earthquakes, volcanoes and tsunami. GeoNet also periodically collect gas and water measurements. These data help us inform communities and agencies about volcano behaviour and potential impacts. All data are freely and openly available to everyone and can be viewed and downloaded through the GeoNet website (www.geonet.org.nz) and other GeoNet tools.",
+      "body": "GeoNet has several monitoring stations in the Ngāti Rangi rohe. These stations are used to monitor volcanic activity and work together with other stations all around Aotearoa New Zealand to monitor earthquakes, volcanoes, landslides and tsunami. At Ruapehu (and other active volcanoes), GeoNet also periodically collect gas and water measurements. These data help inform communities and agencies about volcano behaviour and potential impacts. All data are freely and openly available to everyone and can be viewed and downloaded through the <a href='https://www.geonet.org.nz' target='_blank'>GeoNet website</a> and other GeoNet tools.",
       "center": null,
       "zoom": 10
     },
