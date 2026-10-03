@@ -12,7 +12,7 @@
     {
       "key": "sec:1e5f8c1b9d",
       "title": "Mangateitei station",
-      "body": "Just north of Ohakune, the Mangateitei station is located on the southern side of Mount Ruapehu. It is a multi-parameter station that monitors seismic activity, ground deformation, and gas emissions. The station is equipped with a seismometer, a GNSS (or GPS), and gas sensors. Data are continuously recorded and transmitted in real-time to GeoNet. All data are also made freely available to the public through the <a href='https://www.geonet.org.nz' target='_blank'>GeoNet website</a> and other GeoNet tools.",
+      "body": "Just north of Ohakune, the Mangateitei station is located on the southern side of Mount Ruapehu. Different types of instruments are installed at the station. A seismometer to measure earthquakes, tremors and seismic activity, a GNSS (or GPS) to measure ground deformation and a web camera to have a view on the volcano. All these data are continuously recorded and transmitted in real-time to GeoNet. As soon as GeoNet receive them, data are made freely available to the public through the <a href='https://www.geonet.org.nz' target='_blank'>GeoNet website</a> and other GeoNet tools.",
       "center": [175.47041, -39.38461],
       "zoom": 19,
       "basemap": "satellite",
@@ -21,7 +21,7 @@
     {
       "key": "sec:3e5f8c1b9d",
       "title": "Volcano monitoring cameras",
-      "body": "GeoNet's volcano camera images are an important part of the monitoring programme as changes at a volcano can be observed and compared over time. Our cameras produce an image every 10 minutes. The latest images can be viewed on the <a href='https://www.geonet.org.nz/volcano/cameras'>Volcano Cameras page</a> on the GeoNet website.",
+      "body": "GeoNet's volcano camera images are an important part of the monitoring programme as changes at a volcano can be observed and compared over time. GeoNet cameras produce an image every 10 minutes. The latest images can be viewed on the <a href='https://www.geonet.org.nz/volcano/cameras'>Volcano Cameras page</a> on the GeoNet website.",
       "center": [175.45, -39.3],
       "zoom": 11,
       "basemap": "linz",
@@ -31,7 +31,7 @@
     {
       "key": "sec:c9d3fe8924",
       "title": "Mangateitei Web Camera",
-      "body": "If we fly back to Mangateitei station, the visual camera installed provides images of Mount Ruapehu from the South. Mangateitei webcam latest images can be viewed on the <a href='https://www.geonet.org.nz/volcano/cameras/ruapehusouth'>Ruapehu South camera page</a>. The full archive of high resolution images since when the camera was installed in 2011 can be downloaded on the <a href='https://data.geonet.org.nz/v1/data/camera/volcano/images/'>GeoNet Data website</a>. The station code for this camera is <strong>MTSR</strong>. The image below was captured on March 6, at 3:30 am of the night.",
+      "body": "If we fly back to Mangateitei station, the visual camera installed provides images of Mount Ruapehu from the South. Mangateitei webcam latest images can be viewed on the <a href='https://www.geonet.org.nz/volcano/cameras/ruapehusouth'>Ruapehu South camera page</a>. The full archive of high resolution images since 2011, when the camera was first installed, can be downloaded on the <a href='https://data.geonet.org.nz/v1/data/camera/volcano/images/'>GeoNet Data portal</a>. The station code for this camera is <strong>MTSR</strong>. For example, the image below was captured on March 6, at 3:30 am of the night.",
       "center": [175.47041, -39.38461],
       "zoom": 12,
       "basemap": "linz",
